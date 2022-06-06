@@ -1,5 +1,4 @@
 # The legacy library
-# The raw library
 [![DOI](https://zenodo.org/badge/324291710.svg)](http://doi.org/10.5281/zenodo.4528985)
 [![pipeline status](https://gitlab.cern.ch/rest-for-physics/legacylib/badges/master/pipeline.svg)](https://gitlab.cern.ch/rest-for-physics/legacylib/-/commits/master)
 [![website](https://img.shields.io/badge/user-guide-E8B6FF.svg)](https://rest-for-physics.github.io)

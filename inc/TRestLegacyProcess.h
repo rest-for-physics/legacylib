@@ -52,4 +52,23 @@ class TRestLegacyProcess : public TRestEventProcess {
 
     ClassDefOverride(TRestLegacyProcess, 0);
 };
+
+#define LegacyProcessDef(thisname, newname, n)                                                       \
+    any GetInputEvent() const final { return any((TRestEvent*)nullptr); }                            \
+    any GetOutputEvent() const final { return any((TRestEvent*)nullptr); }                           \
+    void InitProcess() final{};                                                                      \
+    TRestEvent* ProcessEvent(TRestEvent* eventInput) final {                                         \
+        RESTError << "You are trying to execute a legacy process " #thisname << RESTendl;            \
+        RESTError << "This is not allow, this class is kept for backward compatibility" << RESTendl; \
+        exit(1);                                                                                     \
+        return nullptr;                                                                              \
+    }                                                                                                \
+    void EndProcess() final{};                                                                       \
+    const char* GetProcessName() const final { return #thisname; }                                   \
+    thisname() {                                                                                     \
+        RESTWarning << "Creating legacy process " #thisname << RESTendl;                             \
+        RESTWarning << "This process is now implemented under" #newname << RESTendl;                 \
+    }                                                                                                \
+    ClassDef(thisname, n)
+
 #endif

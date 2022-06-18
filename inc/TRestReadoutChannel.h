@@ -28,77 +28,8 @@
 #include "TObject.h"
 #include "TRestMetadata.h"
 
-#include "TRestReadoutPixel.h"
+#include "TRestDetectorReadoutChannel.h"
 
-enum TRestReadoutChannelType {
-    Channel_NoType = 0,
-    Channel_Pixel = 1,
-    Channel_X = 2,
-    Channel_Y = 3,
-    Channel_U = 4,
-    Channel_V = 5,
-    Channel_W = 6,
-};
+typedef TRestDetectorReadoutChannel TRestReadoutChannel;
 
-/// A class to store the readout channel definition used in TRestReadoutModule.
-/// It allows to integrate any number of independent readout pixels.
-class TRestReadoutChannel : public TObject {
-   private:
-    Int_t fDaqID;  ///< Defines the corresponding daq channel id. See decoding
-                   ///< details at TRestReadout.
-
-    std::vector<TRestReadoutPixel> fReadoutPixel;  ///< A vector storing the different TRestReadoutPixel
-                                                   ///< definitions.
-
-    Short_t fChannelId = -1;  ///< It stores the corresponding physical readout channel
-
-    void Initialize();
-
-   public:
-    /// Returns the corresponding daq channel id
-    Int_t GetDaqID() { return fDaqID; }
-
-    /// Returns the corresponding channel id
-    Int_t GetChannelId() { return fChannelId; }
-
-    /// Returns the total number of pixels inside the readout channel
-    Int_t GetNumberOfPixels() { return fReadoutPixel.size(); }
-
-    TRestReadoutPixel& operator[](int n) { return fReadoutPixel[n]; }
-
-    /// Returns a pointer to the pixel *n* by index.
-    TRestReadoutPixel* GetPixel(int n) {
-        if (n >= GetNumberOfPixels()) return NULL;
-        return &fReadoutPixel[n];
-    }
-
-    void SetType(TRestReadoutChannelType type) {
-        // in future we may implement this
-    }
-
-    TRestReadoutChannelType GetType() {
-        // in future we may implement this
-        return Channel_NoType;
-    }
-
-    /// Sets the daq channel number id
-    void SetDaqID(Int_t id) { fDaqID = id; }
-
-    /// Sets the readout channel number id
-    void SetChannelID(Int_t id) { fChannelId = id; }
-
-    /// Adds a new pixel to the readout channel
-    void AddPixel(TRestReadoutPixel pix) { fReadoutPixel.push_back(pix); }
-
-    Int_t isInside(Double_t x, Double_t y);
-
-    void Print(int DetailLevel = 0);
-
-    // Construtor
-    TRestReadoutChannel();
-    // Destructor
-    virtual ~TRestReadoutChannel();
-
-    ClassDef(TRestReadoutChannel, 3);  // REST run class
-};
 #endif

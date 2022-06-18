@@ -27,78 +27,10 @@
 
 #include "TObject.h"
 #include "TRestMetadata.h"
-#include "TRestReadoutPlane.h"
+#include "TRestDetectorReadout.h"
 
 /// A metadata class to generate/store a readout description.
-class TRestReadout : public TRestMetadata {
-   private:
-    void InitFromConfigFile();
-    void DoReadoutMapping(TRestReadoutModule* mod, int nodes = 0);
+typedef TRestDetectorReadout TRestReadout;
 
-    void Initialize();
 
-    /// Defines if a decoding file was used to match physical readout channel id with signal daq id
-    Bool_t fDecoding;
-    /// Number of nodes per axis used on the readout coordinate mapping. See also TRestReadoutMapping.
-    Int_t fMappingNodes;
-    /// Number of readout planes present on the readout
-    Int_t fNReadoutPlanes;
-    /// A vector storing the TRestReadoutPlane definitions.
-    std::vector<TRestReadoutPlane> fReadoutPlanes;
-    /// A vector storing the TRestReadoutMapping for each kind of readout modules.
-    std::map<TString, TRestReadoutMapping> fReadoutMappings;
-
-    void ValidateReadout();
-
-   public:
-    TRestReadoutPlane& operator[](int p) { return fReadoutPlanes[p]; }
-
-    TRestReadoutPlane* GetReadoutPlane(int p);
-    void AddReadoutPlane(TRestReadoutPlane plane);
-
-    /////////////////////////////////////
-    //{
-    TRestReadoutPlane* GetReadoutPlaneWithID(int id);
-    TRestReadoutModule* GetReadoutModuleWithID(int id);
-    TRestReadoutChannel* GetReadoutChannelWithdaqID(int daqId);
-    //}
-    /////////////////////////////////////
-
-    Int_t GetNumberOfReadoutPlanes();
-    Int_t GetNumberOfModules();
-    Int_t GetNumberOfChannels();
-
-    /////////////////////////////////////
-    //{
-    TRestReadoutModule* ParseModuleDefinition(TiXmlElement* moduleDefinition);
-    void GetPlaneModuleChannel(Int_t daqID, Int_t& planeID, Int_t& moduleID, Int_t& channelID);
-    Int_t GetHitsDaqChannel(TVector3 hitpos, Int_t& planeID, Int_t& moduleID, Int_t& channelID);
-    Double_t GetX(Int_t signalID);
-    Double_t GetY(Int_t signalID);
-    //}
-    /////////////////////////////////////
-
-    Double_t GetX(Int_t planeID, Int_t modID, Int_t chID);
-    Double_t GetY(Int_t planeID, Int_t modID, Int_t chID);
-
-    // Detal Level:
-    // 0->this readout
-    // 1->+all readout plane
-    // 2->+all readout module
-    // 3->+all readout channel
-    // 4->+all readout pixel
-    void PrintMetadata() { PrintMetadata(1); }
-    void PrintMetadata(Int_t DetailLevel);
-
-    void Draw();
-
-    // Construtor
-    TRestReadout();
-    TRestReadout(const char* cfgFileName);
-    TRestReadout(const char* cfgFileName, std::string name);
-    // Destructor
-    virtual ~TRestReadout();
-
-    ClassDef(TRestReadout, 2);
-};
 #endif

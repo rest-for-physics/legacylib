@@ -38,3 +38,5 @@
 /// <hr>
 ///
 #include "TRestHitsEvent.h"
+
+ClassImp(TRestHitsEvent)

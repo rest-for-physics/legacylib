@@ -20,13 +20,16 @@
  * For the list of contributors see $REST_PATH/CREDITS.                  *
  *************************************************************************/
 
-#ifndef RestCore_TRestRawZeroSuppresionProcess
-#define RestCore_TRestRawZeroSuppresionProcess
+#ifndef RestCore_TRestSignalZeroSuppresionProcess
+#define RestCore_TRestSignalZeroSuppresionProcess
+
+//#include <TRestGas.h>
+//#include <TRestReadout.h>
 
 #include "TRestLegacyProcess.h"
 
 //! A process to identify signal and remove baseline noise from a TRestRawSignalEvent.
-class TRestRawZeroSuppresionProcess : public TRestEventProcess {
+class TRestSignalZeroSuppresionProcess : public TRestEventProcess {
    private:
     /// The ADC range used for baseline offset definition
     TVector2 fBaseLineRange;
@@ -41,36 +44,42 @@ class TRestRawZeroSuppresionProcess : public TRestEventProcess {
     Double_t fSignalThreshold;
 
     /// Number of consecutive points over threshold required to accept a signal.
-    Int_t fNPointsOverThreshold;
+    Int_t fPointsOverThreshold;
 
     Int_t fNPointsFlatThreshold;
 
-    /// A parameter to determine if baseline correction has been applied by a previous process
+    /// A parameter to determine if baseline correction has been applied by a previous process, not used
     bool fBaseLineCorrection;
 
-    /// The ADC sampling used to transform ADC units to physical time in the output TRestDetectorSignalEvent.
-    /// Given in us.
+    /// A parameter to determine whether to cut empty events
+    bool fCutEmptyEvents;
+
+    /// The ADC sampling used to transform ADC units to physical time in the output TRestSignalEvent. Given in
+    /// us.
     Double_t fSampling;
 
    public:
-    /// It prints out the process parameters stored in the metadata structure
+    /// It prints out the process parameters stored in the RESTMetadata structure
     void PrintMetadata() {
         BeginPrintProcess();
+
         RESTMetadata << "Base line range definition : ( " << fBaseLineRange.X() << " , " << fBaseLineRange.Y()
                      << " ) " << RESTendl;
         RESTMetadata << "Integral range : ( " << fIntegralRange.X() << " , " << fIntegralRange.Y() << " ) "
                      << RESTendl;
         RESTMetadata << "Point Threshold : " << fPointThreshold << " sigmas" << RESTendl;
         RESTMetadata << "Signal threshold : " << fSignalThreshold << " sigmas" << RESTendl;
-        RESTMetadata << "Number of points over threshold : " << fNPointsOverThreshold << RESTendl;
+        RESTMetadata << "Number of points over threshold : " << fPointsOverThreshold << RESTendl;
         RESTMetadata << "Sampling rate : " << 1. / fSampling << " MHz" << RESTendl;
         RESTMetadata << "Max Number of points of flat signal tail : " << fNPointsFlatThreshold << RESTendl;
+        RESTMetadata << "Cut empty events : " << (fCutEmptyEvents ? "true" : "false") << RESTendl;
+
         if (fBaseLineCorrection)
             RESTMetadata << "BaseLine correction is enabled for TRestRawSignalAnalysisProcess" << RESTendl;
 
         EndPrintProcess();
     }
 
-    LegacyProcessDef(TRestRawZeroSuppresionProcess, TRestRawToDetectorSignalProcess, 4);
+    LegacyProcessDef(TRestSignalZeroSuppresionProcess, TRestRawToDetectorSignalProcess, 4);
 };
 #endif

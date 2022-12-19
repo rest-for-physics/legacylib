@@ -26,7 +26,7 @@
 #include "TRestLegacyProcess.h"
 
 //! A process allowing to recover selected channels from a TRestRawSignalEvent
-class TRestRawSignalRecoverChannelsProcess : public TRestEventProcess {
+class TRestRawSignalRecoverChannelsProcess : public TRestLegacyProcess {
    private:
     std::vector<Int_t> fChannelIds;  //<
 
@@ -44,7 +44,7 @@ class TRestRawSignalRecoverChannelsProcess : public TRestEventProcess {
         RESTWarning << "This process is now implemented under TRestDetectorSignalRecoveryProcess" << RESTendl;
     }
 
-    TRestRawSignalRecoverChannelsProcess(const char* configFilename) {
+    TRestRawSignalRecoverChannelsProcess(char* configFilename) {
         RESTWarning << "Creating legacy process TRestRawSignalRecoverChannelsProcess" << RESTendl;
         RESTWarning << "This process is now implemented under TRestDetectorSignalRecoveryProcess" << RESTendl;
     }

@@ -67,6 +67,4 @@
 ///
 #include "TRestRawSignalRecoverChannelsProcess.h"
 
-using namespace std;
-
 ClassImp(TRestRawSignalRecoverChannelsProcess);

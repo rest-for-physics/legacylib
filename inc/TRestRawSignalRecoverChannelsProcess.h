@@ -49,9 +49,6 @@ class TRestRawSignalRecoverChannelsProcess : public TRestLegacyProcess {
         RESTWarning << "This process is now implemented under TRestDetectorSignalRecoveryProcess" << RESTendl;
     }
 
-    // Destructor
-    ~TRestRawSignalRecoverChannelsProcess();
-
     ClassDefOverride(TRestRawSignalRecoverChannelsProcess, 1);
 };
 #endif

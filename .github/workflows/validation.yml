@@ -1,17 +1,13 @@
 name: Validation
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-  release:
-
   workflow_dispatch:
+  workflow_call:
 
 env:
   CMAKE_BUILD_TYPE: Release
   REST_PATH: /rest/legacylib/install
+  LEGACY_LIB_PATH: legacylib
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 defaults:
@@ -19,8 +15,6 @@ defaults:
     shell: bash
 
 jobs:
-  framework-validation:
-    uses: rest-for-physics/framework/.github/workflows/validation.yml@master
 
   build-legacylib:
     name: Build only legacy

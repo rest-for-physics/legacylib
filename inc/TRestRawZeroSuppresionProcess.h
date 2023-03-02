@@ -75,6 +75,7 @@ class TRestRawZeroSuppresionProcess : public TRestLegacyProcess {
         RESTWarning << "Creating legacy process TRestRawZeroSuppresionProcess" << RESTendl;
         RESTWarning << "This process is now implemented under TRestRawToDetectorSignalProcess" << RESTendl;
     }
+
     TRestRawZeroSuppresionProcess(char* cfgFileName) {
         RESTWarning << "Creating legacy process TRestRawZeroSuppresionProcess" << RESTendl;
         RESTWarning << "This process is now implemented under TRestRawToDetectorSignalProcess" << RESTendl;

@@ -47,8 +47,6 @@ class TRestDetectorHitsRotateAndTranslateProcess : public TRestLegacyProcess {
     Double_t fGamma;  //<
 
    public:
-    const char* GetProcessName() const override { return "rotateAndTraslate"; }
-
     inline Double_t GetDeltaX() const { return fDeltaX; }
     inline Double_t GetDeltaY() const { return fDeltaY; }
     inline Double_t GetDeltaZ() const { return fDeltaZ; }

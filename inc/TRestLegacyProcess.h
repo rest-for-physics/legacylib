@@ -28,8 +28,8 @@
 //! Base class for legacy process
 class TRestLegacyProcess : public TRestEventProcess {
    public:
-    any GetInputEvent() const final { return any((TRestEvent*)nullptr); }
-    any GetOutputEvent() const final { return any((TRestEvent*)nullptr); }
+    RESTValue GetInputEvent() const final { return RESTValue((TRestEvent*)nullptr); }
+    RESTValue GetOutputEvent() const final { return RESTValue((TRestEvent*)nullptr); }
 
     void InitProcess() final{};
     TRestEvent* ProcessEvent(TRestEvent* eventInput) final {
